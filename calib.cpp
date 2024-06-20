@@ -35,10 +35,11 @@ int main(int argc, char** argv) {
 		return 1;
 	}
 
-	cap1.set(CV_CAP_PROP_FRAME_WIDTH,FRAME_W);
-    cap1.set(CV_CAP_PROP_FRAME_HEIGHT,FRAME_H);
-    cap2.set(CV_CAP_PROP_FRAME_WIDTH,FRAME_W);
-    cap2.set(CV_CAP_PROP_FRAME_HEIGHT,FRAME_H);
+	cap1.set(CAP_PROP_FRAME_WIDTH,FRAME_W);
+    cap1.set(CAP_PROP_FRAME_HEIGHT,FRAME_H);
+    cap2.set(CAP_PROP_FRAME_WIDTH,FRAME_W);
+    cap2.set(CAP_PROP_FRAME_HEIGHT,FRAME_H);
+
 
     int chessboard_frames = 0;
     std::cout << "STATUS: Started Chessboard pattern detection\n";

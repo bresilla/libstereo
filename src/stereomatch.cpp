@@ -34,8 +34,8 @@ Mat& StereoBlockMatcher::getDisparity(Mat& img1, Mat& img2) {
 	remap(img1, img1, map1x, map1y, INTER_LINEAR, BORDER_CONSTANT, Scalar());
 	remap(img2, img2, map2x, map2y, INTER_LINEAR, BORDER_CONSTANT, Scalar());
 
-	cvtColor(img1, gray1, CV_BGR2GRAY);
-	cvtColor(img2, gray2, CV_BGR2GRAY);
+	cvtColor(img1, gray1, cv::COLOR_BGR2GRAY);
+	cvtColor(img2, gray2, cv::COLOR_BGR2GRAY);
 
 	bm->compute(gray1, gray2, disp16S);
 	minMaxLoc(disp16S, &min_, &max_);

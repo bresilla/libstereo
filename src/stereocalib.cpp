@@ -20,16 +20,16 @@ StereoCalibrator::StereoCalibrator(int num, int bw, int bh, float obj_scale) {
 int StereoCalibrator::detectChessboardCorners(cv::Mat& img1, cv::Mat& img2) {
 	this -> img1 = img1;
 	this -> img2 = img2;
-	cv::cvtColor(img1, gray1, CV_BGR2GRAY);
-	cv::cvtColor(img2, gray2, CV_BGR2GRAY);
+	cv::cvtColor(img1, gray1, cv::COLOR_BGR2GRAY);
+	cv::cvtColor(img2, gray2, cv::COLOR_BGR2GRAY);
 
-	bool res1 = cv::findChessboardCorners(gray1, b_size, corners1, CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_NORMALIZE_IMAGE | CV_CALIB_CB_FILTER_QUADS | cv::CALIB_CB_FAST_CHECK ); 
-	bool res2 = cv::findChessboardCorners(gray2, b_size, corners2, CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_NORMALIZE_IMAGE | CV_CALIB_CB_FILTER_QUADS | cv::CALIB_CB_FAST_CHECK );
+	bool res1 = cv::findChessboardCorners(gray1, b_size, corners1, cv::CALIB_CB_ADAPTIVE_THRESH | cv::CALIB_CB_NORMALIZE_IMAGE | cv::CALIB_CB_FILTER_QUADS | cv::CALIB_CB_FAST_CHECK ); 
+	bool res2 = cv::findChessboardCorners(gray2, b_size, corners2, cv::CALIB_CB_ADAPTIVE_THRESH | cv::CALIB_CB_NORMALIZE_IMAGE | cv::CALIB_CB_FILTER_QUADS | cv::CALIB_CB_FAST_CHECK );
 
 	if (res1 && res2) {
-		cv::cornerSubPix(gray1, corners1, cv::Size(11, 11), cv::Size(-1, -1), cv::TermCriteria(CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 30, 0.1));
+		cv::cornerSubPix(gray1, corners1, cv::Size(11, 11), cv::Size(-1, -1), cv::TermCriteria(cv::TermCriteria::EPS | cv::TermCriteria::COUNT, 30, 0.1));
         cv::drawChessboardCorners(gray1, b_size, corners1, res1);
-        cv::cornerSubPix(gray2, corners2, cv::Size(11, 11), cv::Size(-1, -1), cv::TermCriteria(CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 30, 0.1));
+        cv::cornerSubPix(gray2, corners2, cv::Size(11, 11), cv::Size(-1, -1), cv::TermCriteria(cv::TermCriteria::EPS | cv::TermCriteria::COUNT, 30, 0.1));
         cv::drawChessboardCorners(gray2, b_size, corners2, res2);
 	}
 
@@ -54,8 +54,9 @@ void StereoCalibrator::calibrate() {
 	std::cout << "STATUS: Calibration started ..\n";
 	cv::stereoCalibrate(objPts, imgPts1, imgPts2, 
                     M1, D1, M2, D2, img1.size(), R, T, E, F,
-                    CV_CALIB_SAME_FOCAL_LENGTH | CV_CALIB_ZERO_TANGENT_DIST,
-                    cv::TermCriteria(CV_TERMCRIT_ITER+CV_TERMCRIT_EPS, 100, 1e-5));
+                    // CV_CALIB_SAME_FOCAL_LENGTH | CV_CALIB_ZERO_TANGENT_DIST,
+					cv::CALIB_SAME_FOCAL_LENGTH | cv::CALIB_ZERO_TANGENT_DIST,
+					cv::TermCriteria(cv::TermCriteria::COUNT + cv::TermCriteria::EPS, 100, 1e-5));
 	std::cout << "STATUS: Calibration done ..\n";
 	//testing
 	//std::cout << "Image Points 1:\n";

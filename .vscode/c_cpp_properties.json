@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/usr/include/**",
+        "/usr/include/glib-2.0/**",
+        "/usr/lib/x86_64-linux-gnu/glib-2.0/include/**",
+        "/doc/code/PROJECTS/libstereo/include/**",
+      ],
+      "name": "libstereo",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
