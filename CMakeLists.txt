@@ -1,6 +1,9 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.14)
 PROJECT(libstereo)
 
+#c++ version 17
+SET(CMAKE_CXX_STANDARD 17)
+
 FIND_PACKAGE(OpenCV REQUIRED)
 FIND_PACKAGE(PCL REQUIRED)
 INCLUDE_DIRECTORIES(${PCL_INCLUDE_DIRS})
@@ -12,7 +15,8 @@ include_directories(./include)
 
 SET(SOURCE_CALIB calib.cpp ./src/stereocalib.cpp ./src/stereorect.cpp)
 SET(SOURCE_TEST test.cpp)
-SET(SOURCE_MATCH match.cpp ./src/stereomatch.cpp)
+# SET(SOURCE_MATCH match.cpp ./src/stereomatch.cpp)
+SET(SOURCE_MATCH match_kiti.cpp ./src/stereomatch.cpp)
 
 ADD_EXECUTABLE(stereocalib ${SOURCE_CALIB})
 TARGET_LINK_LIBRARIES(stereocalib ${OpenCV_LIBS})
